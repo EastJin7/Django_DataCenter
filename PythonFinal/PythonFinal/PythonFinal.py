@@ -10,6 +10,12 @@ matplotlib.rcParams['axes.unicode_minus'] = False
 import matplotlib.pyplot as plt
 
 df = pd.read_csv('F:\Python\PythonFinal\Form.csv')
+
+def getDF(i,t):
+    x = df.iat[i-1,t]
+    for j in range(0,7):
+        x += df.iat[i+181+j*180,t]
+    return x
 with open('F:\Python\W12\goods\Form.csv','r') as fin:
     with open('output.csv','w') as fout:
         csvreader = csv.reader(fin)
@@ -105,46 +111,47 @@ with open('F:\Python\W12\goods\Form.csv','r') as fin:
         """
         csvwriter.writerow(['年份','中華民國','日本','韓國','香港','中國','美國','英國'])
         #csvwriter.writerow(['年份','中華民國','日本','韓國','香港','中國','越南','泰國','馬來西亞','新加坡','菲律賓','柬埔寨','印尼','印度','沙烏地阿拉伯','科威特','賴比瑞亞','美國','巴拿馬','巴哈馬','宏都拉斯','聖文森','安地瓜巴布達','安地卡','貝里斯','紐西蘭','吐瓦魯','馬紹爾群島','法國','德國','義大利','荷蘭','英國','挪威','丹麥','葡萄牙','希臘','塞浦路斯','馬爾他','其他國籍'])
-        while(i<=15*12):
-            ROC += df.iat[i-1,5]+df.iat[i+181,5]+df.iat[i+361,5]+df.iat[i+541,5]+df.iat[i+721,5]+df.iat[i+901,5]+df.iat[i+1081,5]+df.iat[i+1261,5]
-            JP += df.iloc[i-1,7]+df.iat[i+181,7]+df.iat[i+361,7]+df.iat[i+541,7]+df.iat[i+721,7]+df.iat[i+901,7]+df.iat[i+1081,7]+df.iat[i+1261,7]
-            KR += df.iloc[i-1,9]+df.iat[i+181,9]+df.iat[i+361,9]+df.iat[i+541,9]+df.iat[i+721,9]+df.iat[i+901,9]+df.iat[i+1081,9]+df.iat[i+1261,9]
-            HK += df.iloc[i-1,11]+df.iat[i+181,11]+df.iat[i+361,11]+df.iat[i+541,11]+df.iat[i+721,11]+df.iat[i+901,11]+df.iat[i+1081,11]+df.iat[i+1261,11]
-            CN += df.iloc[i-1,13]+df.iat[i+181,13]+df.iat[i+361,13]+df.iat[i+541,13]+df.iat[i+721,13]+df.iat[i+901,13]+df.iat[i+1081,13]+df.iat[i+1261,13]
-            US += df.iloc[i-1,35]+df.iat[i+181,35]+df.iat[i+361,35]+df.iat[i+541,35]+df.iat[i+721,35]+df.iat[i+901,35]+df.iat[i+1081,35]+df.iat[i+1261,35]
-            UK += df.iloc[i-1,65]+df.iat[i+181,65]+df.iat[i+361,65]+df.iat[i+541,65]+df.iat[i+721,65]+df.iat[i+901,65]+df.iat[i+1081,65]+df.iat[i+1261,65]
+        a=180
+        while(i<=180):
+            ROC = getDF(i,5)
+            JP = getDF(i,7)
+            KR = getDF(i,9)
+            HK = getDF(i,11)
+            CN = getDF(i,13)
+            US = getDF(i,35)
+            UK = getDF(i,65)
             """
-            VN += df.iloc[i-1,15]+df.iat[i+181,5]+df.iat[i+361,5]+df.iat[i+541,5]+df.iat[i+721,5]+df.iat[i+901,5]+df.iat[i+1081,5]+df.iat[i+1261,5]
-            TH += df.iloc[i-1,17]+df.iat[i+181,5]+df.iat[i+361,5]+df.iat[i+541,5]+df.iat[i+721,5]+df.iat[i+901,5]+df.iat[i+1081,5]+df.iat[i+1261,5]
-            MY += df.iloc[i-1,19]+df.iat[i+181,5]+df.iat[i+361,5]+df.iat[i+541,5]+df.iat[i+721,5]+df.iat[i+901,5]+df.iat[i+1081,5]+df.iat[i+1261,5]
-            SG += df.iloc[i-1,21]+df.iat[i+181,5]+df.iat[i+361,5]+df.iat[i+541,5]+df.iat[i+721,5]+df.iat[i+901,5]+df.iat[i+1081,5]+df.iat[i+1261,5]
-            PH += df.iloc[i-1,23]+df.iat[i+181,5]+df.iat[i+361,5]+df.iat[i+541,5]+df.iat[i+721,5]+df.iat[i+901,5]+df.iat[i+1081,5]+df.iat[i+1261,5]
-            KH += df.iloc[i-1,25]+df.iat[i+181,5]+df.iat[i+361,5]+df.iat[i+541,5]+df.iat[i+721,5]+df.iat[i+901,5]+df.iat[i+1081,5]+df.iat[i+1261,5]
-            ID += df.iloc[i-1,27]+df.iat[i+181,5]+df.iat[i+361,5]+df.iat[i+541,5]+df.iat[i+721,5]+df.iat[i+901,5]+df.iat[i+1081,5]+df.iat[i+1261,5]
-            IN += df.iloc[i-1,29]+df.iat[i+181,5]+df.iat[i+361,5]+df.iat[i+541,5]+df.iat[i+721,5]+df.iat[i+901,5]+df.iat[i+1081,5]+df.iat[i+1261,5]
-            SA += df.iloc[i-1,31]+df.iat[i+181,5]+df.iat[i+361,5]+df.iat[i+541,5]+df.iat[i+721,5]+df.iat[i+901,5]+df.iat[i+1081,5]+df.iat[i+1261,5]
-            KW += df.iloc[i-1,33]+df.iat[i+181,5]+df.iat[i+361,5]+df.iat[i+541,5]+df.iat[i+721,5]+df.iat[i+901,5]+df.iat[i+1081,5]+df.iat[i+1261,5]
-            PA += df.iloc[i-1,37]+df.iat[i+181,5]+df.iat[i+361,5]+df.iat[i+541,5]+df.iat[i+721,5]+df.iat[i+901,5]+df.iat[i+1081,5]+df.iat[i+1261,5]
-            BS += df.iloc[i-1,39]+df.iat[i+181,5]+df.iat[i+361,5]+df.iat[i+541,5]+df.iat[i+721,5]+df.iat[i+901,5]+df.iat[i+1081,5]+df.iat[i+1261,5]
-            HN += df.iloc[i-1,41]+df.iat[i+181,5]+df.iat[i+361,5]+df.iat[i+541,5]+df.iat[i+721,5]+df.iat[i+901,5]+df.iat[i+1081,5]+df.iat[i+1261,5]
-            VC += df.iloc[i-1,43]+df.iat[i+181,5]+df.iat[i+361,5]+df.iat[i+541,5]+df.iat[i+721,5]+df.iat[i+901,5]+df.iat[i+1081,5]+df.iat[i+1261,5]
-            AB += df.iloc[i-1,45]+df.iat[i+181,5]+df.iat[i+361,5]+df.iat[i+541,5]+df.iat[i+721,5]+df.iat[i+901,5]+df.iat[i+1081,5]+df.iat[i+1261,5]
-            AD += df.iloc[i-1,47]+df.iat[i+181,5]+df.iat[i+361,5]+df.iat[i+541,5]+df.iat[i+721,5]+df.iat[i+901,5]+df.iat[i+1081,5]+df.iat[i+1261,5]
-            BZ += df.iloc[i-1,49]+df.iat[i+181,5]+df.iat[i+361,5]+df.iat[i+541,5]+df.iat[i+721,5]+df.iat[i+901,5]+df.iat[i+1081,5]+df.iat[i+1261,5]
-            NZ += df.iloc[i-1,51]+df.iat[i+181,5]+df.iat[i+361,5]+df.iat[i+541,5]+df.iat[i+721,5]+df.iat[i+901,5]+df.iat[i+1081,5]+df.iat[i+1261,5]
-            TL += df.iloc[i-1,53]+df.iat[i+181,5]+df.iat[i+361,5]+df.iat[i+541,5]+df.iat[i+721,5]+df.iat[i+901,5]+df.iat[i+1081,5]+df.iat[i+1261,5]
-            MC += df.iloc[i-1,55]+df.iat[i+181,5]+df.iat[i+361,5]+df.iat[i+541,5]+df.iat[i+721,5]+df.iat[i+901,5]+df.iat[i+1081,5]+df.iat[i+1261,5]
-            FR += df.iloc[i-1,57]+df.iat[i+181,57]+df.iat[i+361,57]+df.iat[i+541,57]+df.iat[i+721,57]+df.iat[i+901,57]+df.iat[i+1081,57]+df.iat[i+1261,57]
-            DE += df.iloc[i-1,59]+df.iat[i+181,5]+df.iat[i+361,5]+df.iat[i+541,5]+df.iat[i+721,5]+df.iat[i+901,5]+df.iat[i+1081,5]+df.iat[i+1261,5]
-            IT += df.iloc[i-1,61]+df.iat[i+181,5]+df.iat[i+361,5]+df.iat[i+541,5]+df.iat[i+721,5]+df.iat[i+901,5]+df.iat[i+1081,5]+df.iat[i+1261,5]
-            NL += df.iloc[i-1,63]+df.iat[i+181,5]+df.iat[i+361,5]+df.iat[i+541,5]+df.iat[i+721,5]+df.iat[i+901,5]+df.iat[i+1081,5]+df.iat[i+1261,5]
-            NO += df.iloc[i-1,67]+df.iat[i+181,5]+df.iat[i+361,5]+df.iat[i+541,5]+df.iat[i+721,5]+df.iat[i+901,5]+df.iat[i+1081,5]+df.iat[i+1261,5]
-            DK += df.iloc[i-1,69]+df.iat[i+181,5]+df.iat[i+361,5]+df.iat[i+541,5]+df.iat[i+721,5]+df.iat[i+901,5]+df.iat[i+1081,5]+df.iat[i+1261,5]
-            PT += df.iloc[i-1,71]+df.iat[i+181,5]+df.iat[i+361,5]+df.iat[i+541,5]+df.iat[i+721,5]+df.iat[i+901,5]+df.iat[i+1081,5]+df.iat[i+1261,5]
-            GR += df.iloc[i-1,73]+df.iat[i+181,5]+df.iat[i+361,5]+df.iat[i+541,5]+df.iat[i+721,5]+df.iat[i+901,5]+df.iat[i+1081,5]+df.iat[i+1261,5]
-            CY += df.iloc[i-1,75]+df.iat[i+181,5]+df.iat[i+361,5]+df.iat[i+541,5]+df.iat[i+721,5]+df.iat[i+901,5]+df.iat[i+1081,5]+df.iat[i+1261,5]
-            MT += df.iloc[i-1,77]+df.iat[i+181,5]+df.iat[i+361,5]+df.iat[i+541,5]+df.iat[i+721,5]+df.iat[i+901,5]+df.iat[i+1081,5]+df.iat[i+1261,5]
-            OT += df.iloc[i-1,79]+df.iat[i+181,5]+df.iat[i+361,5]+df.iat[i+541,5]+df.iat[i+721,5]+df.iat[i+901,5]+df.iat[i+1081,5]+df.iat[i+1261,5]
+            VN += getDF(i,15)
+            TH += getDF(i,17)
+            MY += getDF(i,19)
+            SG += getDF(i,21)
+            PH += getDF(i,23)
+            KH += getDF(i,25)
+            ID += getDF(i,27)
+            IN += getDF(i,29)
+            SA += getDF(i,31)
+            KW += getDF(i,33)
+            PA += getDF(i,37)
+            BS += getDF(i,39)
+            HN += getDF(i,41)
+            VC += getDF(i,43)
+            AB += getDF(i,45)
+            AD += getDF(i,47)
+            BZ += getDF(i,49)
+            NZ += getDF(i,51)
+            TL += getDF(i,53)
+            MC += getDF(i,55)
+            FR += getDF(i,57)
+            DE += getDF(i,59)
+            IT += getDF(i,61)
+            NL += getDF(i,63)
+            NO += getDF(i,67)
+            DK += getDF(i,69)
+            PT += getDF(i,71)
+            GR += getDF(i,73)
+            CY += getDF(i,75)
+            MT += getDF(i,77)
+            OT += getDF(i,79)
             """
             if (i%12==0):
                 #yearTotal = ROC+JP+KR+HK+CN+VN+TH+MY+SG+PH+KH+ID+IN+SA+KW+US+PA+BS+HN+VC+AB+AD+BZ+NZ+TL+MC+FR+DE+IT+NL+UK+NO+DK+PT+GR+CY+MT+OT
