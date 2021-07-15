@@ -1,0 +1,57 @@
+﻿<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0"> <!--url樣式-->
+        <li class="nav-item"> <!--單一按鈕-->
+          <a class="nav-link active" aria-current="page" href="/">首頁</a>
+        </li>
+        <li class="nav-item"> <!--單一按鈕-->
+          <a class="nav-link" href="#">blog</a>
+        </li>
+        <li class="nav-item dropdown"> <!--下拉選單-->
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            我的練習
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown"> <!--下拉選單url樣式-->
+            <li><a class="dropdown-item" href="/news/">文章列表</a></li> <!--下拉選單link item樣式-->
+            <hr class="dropdown-divider"> <!--下拉選單分隔線-->
+            <li><a class="dropdown-item" href="/rank">國際城市人口排行</a></li>
+            <li><a class="dropdown-item" href="/chart">人口統計圖表</a></li>
+            <hr class="dropdown-divider"> <!--下拉選單分隔線-->
+            <li><a class="dropdown-item" href="/admin">管理後台</a></li>
+          </ul>
+        </li>
+      </ul><!--url樣式結束-->
+
+      <form class="d-flex"> <!--搜尋樣式-->
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="搜尋">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    <a class="navbar-brand" href="#"><!--未登入顯示訪客，登入顯示username-->
+    {% if request.user.is_authenticated %}
+      {{ request.user.username }}
+    {% else %}
+      訪客
+     {% endif %}
+    </a>
+      <ul class="navbar-nav mb-2 mb-lg-0"> <!--url樣式-->
+        {% if request.user.is_authenticated %}
+          <li class="nav-item dropdown"> <!--下拉選單-->
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            會員
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown"> <!--下拉選單url樣式-->
+            <li><a class="dropdown-item" href="/admin">管理後台</a></li> <!--下拉選單link item樣式-->
+            <li><a class="dropdown-item" href="/logout">登出</a></li><!--登出-->
+          </ul>
+        {% else %}
+            <li class="nav-item"><a class="nav-link" href="/admin/login/?newt=/" tabindex="-1">登入</a>/li><!--登入-->
+        {% endif %}
+        </ul>
+         </div>
+  </div>
+</nav>

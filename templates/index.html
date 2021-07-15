@@ -1,0 +1,21 @@
+﻿
+{% extends "base.html" %}
+
+{% block title %} 東方世家 {% endblock %}
+{% block headmessage %} 
+    你好, {% if request.user.is_authenticated %}
+        {{ request.user.username }}
+    {% else %}
+        訪客
+    {% endif %} 
+{% endblock %}
+{% block main %}
+  <hr>
+        <h2>This is my test page.</h2>
+        <br>特別號：{{sp}}</br>
+        <br>樂透：{{lotto}}</br>
+
+      {% autoescape off %}
+      {{ plot_div }}
+      {% endautoescape %}
+{% endblock %}

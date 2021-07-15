@@ -1,0 +1,34 @@
+﻿
+{% extends "base.html" %}
+
+{% block title %} 國際城市人口排行 {% endblock %}
+{% block headmessage %} 國際城市人口排行榜 {% endblock %}
+{% block main %}
+    <hr>
+    <form action="/rank/" method=POST><!-- submit後傳送給/rank，將資料以POST方式傳送 -->
+        <select name="get_countryid"><!-- 下拉式選單 -->
+            <option value="999">國家</option>
+            {% for country in countries %}
+                <option value="{{country.id}}">{{country.name}}</option> <!-- 選單文字內容country.name，傳送country.id的值 -->
+            {% endfor %}
+        </select>
+        {% csrf_token %} <!-- Django避免跨站請求偽造的作法 -->
+        <input type='submit' value="選擇">
+    </form>
+
+    <table class="table table-striped table-hover">><!-- table模板 -->
+        <tr class="bg-dark"><!-- 黑色 -->
+            <td colspan="3" align="center" class="table-dark"><h3>主要城市人口排行榜</h3></td> <!--置中 合併儲存格3格-->
+        </tr>
+        <tr class="p-3 mb-2 bg-secondary text-white"> <!-- 標題欄灰色-->
+            <th><center>城市</center></th><td align="center">人口數</td><td align="center">國家</td></tr><!-- table標題 -->
+            {% for city in cities %}
+            <tr>
+                <th><center>{{ city.name }}</center></th>
+                <td align="center">{{ city.population }}</td>
+                <td align="center">{{ city.country }}</td>
+            </tr>
+            {% endfor %}
+        
+    </table>
+{% endblock %}
