@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth import logout #django的logout模組
 from django.contrib.auth.decorators import login_required #載入模組以管控登入前後權限
-from mysite.models import Post,Country,City #呼叫mysite資料夾下的資料庫models.py 呼叫Post,Country,City類別取得資料
+from mysite.models import Post,Country,City,Note #呼叫mysite資料夾下的資料庫models.py 呼叫Post,Country,City類別取得資料
 import random
 from plotly.offline import plot
 import plotly.graph_objs as go
@@ -44,8 +44,6 @@ def show(request, id):
 def rank(request):
 	if request.method == 'POST':
 		country_id = request.POST["get_countryid"] #將從POST方法來的get_countryid值存為country_id
-		if (country_id=='999'):
-			return redirect("/rank")
 		try:
 			country = Country.objects.get(id=country_id) #取出Country物件中id等於country_id的物件作為local變數country
 		except:
@@ -60,8 +58,6 @@ def rank(request):
 def chart(request):
 	if request.method == 'POST':
 		country_id = request.POST["get_countryid"] #將從POST方法來的get_countryid值存為country_id
-		if (country_id=='999'):
-			return redirect("/chart")
 		try:
 			country = Country.objects.get(id=country_id) #取出Country物件中id等於country_id的物件作為local變數country
 		except:
@@ -73,7 +69,7 @@ def chart(request):
 	return render(request, 'chart.html', locals())
 
 def ulogout(request):
-	logout(request) ##django logout模組的登出方法
+	logout(request) #django logout模組的登出方法
 	return redirect('/') #返回根目錄
 
 def delete(request,id):
@@ -83,3 +79,22 @@ def delete(request,id):
 		return redirect('/news')
 	except:
 		return redirect('/news')
+
+
+def edit(request,id):
+	try:
+		post = Post.objects.get(id=id)
+	except:
+		return redirect('/news')
+
+def note(request):
+	notes = Note.objects.all()
+	return render(request, 'note.html', locals())
+
+def addnote(request):
+	if request.method=='POST':
+		title = request.POST["title"]
+		if len(title)>1:
+			note = Note(title=title)
+			note.save()
+		return redirect('/note')

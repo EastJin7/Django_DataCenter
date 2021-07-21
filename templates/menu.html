@@ -1,13 +1,20 @@
-﻿<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+﻿<div class="pos-f-t">
+  <div class="collapse" id="navbarToggleExternalContent">
+    <div class="bg-dark p-4">
+      <h4 class="text-white">Collapsed content</h4>
+      <span class="text-muted">Toggleable via the navbar brand.</span>
+    </div>
+  </div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <a class="navbar-brand" href="#"> <!-- LOGO -->
+      <img src="images/logo.svg" width="30" height="30" class="d-inline-block align-top" alt="">    <!-- Icon -->
+      <span class="h4 mx-1">East-data</span>
+    </a>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0"> <!--url樣式-->
         <li class="nav-item"> <!--單一按鈕-->
-          <a class="nav-link active" aria-current="page" href="/">首頁</a>
+          <a class="nav-link" aria-current="page" href="/">首頁</a>
         </li>
         <li class="nav-item"> <!--單一按鈕-->
           <a class="nav-link" href="#">blog</a>
@@ -21,6 +28,7 @@
             <hr class="dropdown-divider"> <!--下拉選單分隔線-->
             <li><a class="dropdown-item" href="/rank">國際城市人口排行</a></li>
             <li><a class="dropdown-item" href="/chart">人口統計圖表</a></li>
+            <li><a class="dropdown-item" href="/note">意見反應</a></li>
             <hr class="dropdown-divider"> <!--下拉選單分隔線-->
             <li><a class="dropdown-item" href="/admin">管理後台</a></li>
           </ul>
@@ -28,8 +36,8 @@
       </ul><!--url樣式結束-->
 
       <form class="d-flex"> <!--搜尋樣式-->
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="搜尋">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <input class="form-control form-control-md me-2" type="search" placeholder="Search" aria-label="搜尋">
+        <button class="btn btn-outline-warning btn-sm" type="submit">Search</button>
       </form>
     <a class="navbar-brand" href="#"><!--未登入顯示訪客，登入顯示username-->
     {% if request.user.is_authenticated %}
@@ -52,6 +60,7 @@
             <li class="nav-item"><a class="nav-link" href="/admin/login/?newt=/" tabindex="-1">登入</a>/li><!--登入-->
         {% endif %}
         </ul>
-         </div>
+    </div>
   </div>
+</div>
 </nav>

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from mysite.models import Post,Country,City
+from mysite.models import Post,Country,City,Note
 #呼叫mysite資料夾下的models.py 呼叫Post,Country,City類別
 
 # Register your models here.
@@ -14,3 +14,7 @@ admin.site.register(Country, CountryAdmin) #在admin下註冊Country, CountryAdm
 class CityAdmin(admin.ModelAdmin):
     list_display = ('name','population','country')
 admin.site.register(City, CityAdmin) #在admin下註冊City, CityAdmin
+
+class NoteAdmin(admin.ModelAdmin):
+    list_display = ('title', 'pub_date')
+admin.site.register(Note, NoteAdmin) #在admin下註冊NoteAdmin

@@ -23,7 +23,10 @@ urlpatterns = [
     path('news/', views.news),
     path('show/<int:id>/', views.show),
     path('delete/<int:id>/', views.delete),
+    path('edit/<int:id/', views.edit),
     path('rank/', views.rank),
     path('chart/', views.chart),
+    path('note/', views.note),
+    path('addnote/', views.addnote),
     path('logout',views.ulogout),
 ]
