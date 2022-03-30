@@ -2,48 +2,52 @@
 {% extends "base.html" %}
 
 {% block title %} 統計圖表 {% endblock %}
-{% block headmessage %} 城市人口統計圖表 {% endblock %}
+
 {% block main %}
-  <hr>
-  <div class="container-sm">
-  <form action="/chart/" method=POST class="row g-4"><!-- submit後傳送給/rank，將資料以POST方式傳送 -->
-    <div class="btn-toolbar justify-content-between col-sm-3">
-     <label for="selCountry" class="col-md-4 col-form-label">選擇國家：</label>
-      <select name="get_countryid" class="form-control-sm"> <!-- 下拉式選單 -->
-      <option selected>全部</option>
-      {% for country in countries %}
-        <option value="{{country.id}}">{{country.name}}</option> <!-- 選單文字內容country.name，傳送country.id的值-->
-      {% endfor %}
-      </select></div>
-      {% csrf_token %} <!-- Django避免跨站請求偽造的作法 -->
-    <div class="col-md-3"><input type='submit' class="btn btn-secondary" value="選擇"></div>
-    </div>
-  </form>
-   <canvas id="myChart" width="250" height="100"></canvas> <!-- html 畫布比例 -->
-<!-- javaScript定義圖表 -->
-<script> 
+<hr />
+<div class="container-fluid mt-3 p-3">
+    <form action="/chart/" method=POST class="row g-4 pt-3">
+        <!-- submit後傳送給/rank，將資料以POST方式傳送 -->
+        <div class="btn-toolbar justify-content-between col-sm-3">
+            <label for="selCountry" class="col-md-4 col-form-label">選擇國家：</label>
+            <select name="get_countryid" class="form-control-sm">
+                <!-- 下拉式選單 -->
+                <option selected>全部</option>
+                {% for country in countries %}
+                <option value="{{country.id}}">{{country.name}}</option> <!-- 選單文字內容country.name，傳送country.id的值-->
+                {% endfor %}
+            </select>
+        </div>
+        {% csrf_token %} <!-- Django避免跨站請求偽造的作法 -->
+        <div class="col-md-3"><input type='submit' class="btn btn-secondary" value="選擇"></div>
+
+    </form>
+    <canvas id="myChart" width="250" height="100"></canvas> <!-- html 畫布比例 -->
+    <!-- javaScript定義圖表 -->
+    <script>
+
 var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
         labels: [
-        
+
             {% for city in cities %}
                 '{{city.name}}',
             {% endfor %}
-            
-        ], 
+
+        ],
         /* 底下標籤 */
         datasets: [{
             label: '城市人口', /* label說明 */
             data: [/* 資料內容 */
-            
+
             {% for city in cities %}
                 {{city.population}},
             {% endfor %}
-            
+
             {{population}}
-            ], 
+            ],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -71,7 +75,8 @@ var myChart = new Chart(ctx, {
         }
     }
 });
-</script>
+    </script>
+</div>
 </div>
 
 {% endblock %}

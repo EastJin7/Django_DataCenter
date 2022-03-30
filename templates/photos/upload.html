@@ -1,0 +1,66 @@
+﻿{% extends "base.html" %}
+{% block title %} 作品集 {% endblock %}
+{% block headmessage %} 作品集 {% endblock %}
+{% load static %}
+{% block main %}
+<style>
+    .form-control-file {
+        background-color: #f3fbff;
+        color: #148ed5;
+        font-size: 14px;
+        line-height: 36px;
+        text-align: center;
+        padding: 0 10px;
+        width: 200px;
+        height: 150px;
+        position: relative;
+        display: inline-block;
+        overflow: hidden;
+        border: solid #7ecdf5 1px;
+        border-radius: 10px;
+        margin-right: 10px;
+    }
+</style>
+
+<div class="container-sm mt-5 p-3">
+
+    <br />
+    <h2 class="text-center"><b>上傳圖片</b></h2>
+    <br />
+    <form action="" enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group col-md-4 center">
+                {{ form.pictitle.label_tag }}
+                {{ form.pictitle }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4 center">
+                {{ form.piccontent.label_tag }}
+                {{ form.piccontent }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4 center">
+
+                {{ form.image.label_tag }}
+                <input type="file" name="image" class="form-control-file hidden" accept="image/*" id="id_image"
+                       style="background-image: url('{% static 'media/img/add.png' %}');
+        background-repeat: no-repeat; background-size: 64px; background-position: center"
+                       value="{{ form.image.value|stringformat:'s' }} onchange="uploadImage(this)">
+
+
+                {{ form.upload_date }}
+                <br />
+            </div>
+        <div class="col">
+            <center>
+                <input class="bottonSub w3-padding-large" type="submit" value="上傳"></input>
+             </center>
+        </div>
+            
+        </div>
+    </form>
+</div>
+{% endblock %}

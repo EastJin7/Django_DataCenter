@@ -14,8 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 from mysite import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.index),
@@ -27,6 +29,22 @@ urlpatterns = [
     path('rank/', views.rank),
     path('chart/', views.chart),
     path('note/', views.note),
-    path('addnote/', views.addnote),
+    path('addnote', views.addnote),
     path('logout',views.ulogout),
+    path('login/',views.ulogin,name='Login'),
+    path('about/',views.about),
+    path('register/',views.usignup,name='Register'),
+    path('captcha/', include('captcha.urls')), #驗證碼
+    path('expenses/', views.expenses, name="Index"),
+    path('expenses/up/<str:pk>', views.upexp, name='upexp'),
+    path('expenses/del/<str:pk>', views.delexp, name='delexp'),
+    path('lotto/', views.getlotto),
+    path('plot/',views.sincos),
+    path('resetPwd/',views.resetPwd),
+    path('photos/upload', views.photos, name='imageUp'),
+    path('photos/', views.photosview, name='imageIndex'),
+    #path('callback/', views.callback),
 ]
+# 在開發環境要顯示靜態檔案需加上此設定
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

@@ -1,17 +1,55 @@
-﻿
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 
 {% block title %} Welcome {% endblock %}
-{% block headmessage %} 你好, {% endblock %}
+{% block headmessage %} 文章列表 {% endblock %}
 {% block main %}
-    <hr>
-    <table class="table table-striped table-hover">
-        <tr>
-        <td class="p-3 mb-2 bg-secondary text-white">
-            {{ post.title }}<br>
-            {{ post.pub_date }}</td>
-        </tr>
-        <td>{{ post.body | linebreaks }}</td>
-        
-    </table>
+<hr>
+<div class="container pt-3">
+    <div class="row bg-secondary text-white align-items-center p-2">
+        <div class="col-10"><h3><b> {{ post.title }}</h3></b></div>
+    </div>
+    <div class="row bg-secondary text-white">
+        <div style="width: 80%;">發表日期：{{ post.pub_date }}</div>
+        <div class="align-self-end" style="width: 20%;">
+            <div class="btn-group container" role="group" aria-label="managet">
+                <a href="/edit/{{ post.id }}" class="btn btn-dark btn-sm">編輯</a>
+                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delModal" id="del_{{ post.id }}">刪除</button>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-light">
+        <div class="col displaytext">{{ post.body | linebreaks }}</div>
+    </div>
+
+</div>
+
+<!-- The Modal -->
+<div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="delModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h3 class="modal-title" id="delModalLabel">刪除文章</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <h4>
+                    {% if request.user.username == "admin" %}
+                    確定刪除這篇文章？此動作無法復原。
+                    {% else %}
+                    你無權進行此操作。
+                    {% endif %}
+                </h4>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                {% if request.user.username == "admin" %}
+                    <a href="/delete/{{ post.id }}" class="btn btn-danger">Delete</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

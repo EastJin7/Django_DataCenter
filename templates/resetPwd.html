@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %} 忘記密碼 {% endblock %}
+{% block main %}
+    <div class="container m-5">
+        <p>忘記密碼？輸入電子信箱，我們將發信為您重設密碼</p>
+        <form method="post">
+            {% csrf_token %}
+            <fieldset>
+                <div class="pb-3 mb-3 border-bottom">
+                    {{ form.email.errors }}
+                    <label for="id_email">Email：</label>
+                    {{ form.email }}
+                </div>
+                <input class="btn btn-primary" type="submit" value="重設密碼">
+            </fieldset>
+        </form>
+    </div>
+        {% endblock %}

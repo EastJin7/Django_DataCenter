@@ -1,27 +1,165 @@
-﻿
-{% extends "base.html" %}
-
-{% block title %} Welcome {% endblock %}
-{% block headmessage %} 你好, {% endblock %}
+﻿{% extends "base.html" %}
+{% block title %} 留言版 {% endblock %}
+{% block headmessage %} 留言版 {% endblock %}
+{% load static %}
 {% block main %}
-    <hr>
-    <div class="container-sm">
-    <form action="/addnote/" method='POST' class="row g-3">
-    {% csrf_token %}
-    <div class="col-md-8">
-    <input type="text" name="title" class="form-control" placeholder="意見內容" aria-labelby="title" size=20>
-    </div>
-    <div class="col-auto"><button type="submit" class="btn btn-primary mb-3">發送</button></div>
-    </form>
+<style>
+    .container {
+        border: 2px solid #dedede;
+        background-color: #f1f1f1;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 10px 0;
+    }
 
-    <table class="table table-hover">
-    <tr class="p-3 mb-2 bg-secondary text-white"><th scope="row">留言</th><td align="center">發表日期</td></tr>
-    {% for note in notes %}
-        <tr>
-            <th scope="row">{{ note.title }} </th>
-            <td align="center">{{ note.pub_date }}</td>
-        </tr>
-    {% endfor %}
-    </table>
+    .avatar {
+        vertical-align: middle;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+
+    body {
+        max-width: 1000px;
+    }
+
+    .container img {
+        float: left;
+        max-width: 50px;
+        max-height: 50px;
+        margin-right: 20px;
+        border-radius: 40%;
+    }
+
+    .container::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+    .time-right {
+        float: right;
+        color: #aaa;
+    }
+
+    .open-button {
+        background-color: mediumseagreen;
+        color: white;
+        padding: 16px 20px;
+        border: none;
+        cursor: pointer;
+        opacity: 0.8;
+        position: fixed;
+        bottom: 23px;
+        right: 28px;
+        width: 500px;
+    }
+
+    /* The popup chat - hidden by default */
+    .chat-popup {
+        display: none;
+        position: fixed;
+        bottom: 0;
+        right: 15px;
+        border: 3px solid #f1f1f1;
+        z-index: 9;
+        width: 500px;
+    }
+
+    /* Add styles to the form container */
+    .form-container {
+        max-width: 500px;
+        padding: 10px;
+        background-color: white;
+    }
+
+        /* Full-width textarea */
+        .form-container textarea {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            border: none;
+            background: #f1f1f1;
+            resize: none;
+            min-height: 80px;
+        }
+
+            /* When the textarea gets focus, do something */
+            .form-container textarea:focus {
+                background-color: #ddd;
+                outline: none;
+            }
+
+        /* Set a style for the submit/send button */
+        .form-container .btn {
+            background-color: mediumseagreen;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        /* Add a red background color to the cancel button */
+        .form-container .cancel {
+            background-color: dimgray;
+        }
+
+        /* Add some hover effects to buttons */
+        .form-container .btn:hover, .open-button:hover {
+            opacity: 1;
+        }
+</style>
+
+<script>
+    function openForm() {
+        document.getElementById("myForm").style.display = "block";
+    }
+
+    function closeForm() {
+        document.getElementById("myForm").style.display = "none";
+    }
+</script>
+
+    <div class="container-sm mt-5">
+        <form action="/addnote" method='POST' class="row g-3 pt-3">
+            {% csrf_token %}
+            <div class="col-md-8">
+                <input type="text" name="title" class="form-control" placeholder="留言" aria-labelby="title" size=20>
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="w3-padding bottonSub mb-3" style="font-size:16px">發送</button>
+            </div>
+        </form>
+
+        <table class="table table-hover">
+            <tr class="p-3 mb-2 bg-secondary text-white"><th scope="row">留言內容</th><td align="right">time</td></tr>
+        </table>
+        {% for note in notes %}
+        <div class="container">
+            <img src="{% static 'media/img/img_avatar.png' %}" alt="Avatar" class="avatar" style="width:100%;">
+            <p>{{ note.title }}</p>
+            <span class="time-right">{{ note.pub_date }}</span>
+        </div>
+        {% endfor %}
+
+
+        <button class="open-button" onclick="openForm()">留言</button>
+
+
+
+        <div class="chat-popup" id="myForm">
+            <form action="/addnote" method='POST' class="form-container">
+                {% csrf_token %}
+                <h2><b>發布留言</b></h2>
+                <label for="note"><h4>留言內容</h4></label>
+                <textarea placeholder="Type message.." type="text" name="title" class="form-control" aria-labelby="title" size=20 required></textarea>
+                <button type="submit" class="btn">送出</button>
+                <button type="button" class="btn cancel" onclick="closeForm()">取消</button>
+            </form>
+        </div>
+
     </div>
-{% endblock %}
+    {% endblock %}

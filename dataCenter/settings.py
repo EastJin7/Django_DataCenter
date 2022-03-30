@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import django_heroku
 from pathlib import Path
 import os
+import json
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +27,6 @@ SECRET_KEY = 'django-insecure-1=a5n@q!()+2k%!u5bp(6@qh^&@h+at$fej$&ms$ppvp^rpas=
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 
-
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -36,7 +36,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mysite',
+    'ckeditor', #富文本編輯器
+    'captcha', #圖形驗證碼
 ]
+
+MULTI_CAPTCHA_ADMIN = {
+    'engine': 'simple-captcha',
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -109,6 +115,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') #靜態檔案放這
 django_heroku.settings(locals())
 
@@ -119,3 +128,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Login and Logout
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+# 上傳圖片
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
+
+#CAPTCHA
+CAPTCHA_IMAGE_SIZE = (80, 45)   # Captcha 圖片大小
+CAPTCHA_LENGTH = 4   # 驗證文字個數
+CAPTCHA_TIMEOUT = 3   # 多久逾時(min)
+
+#line
+#LINE_CHANNEL_ACCESS_TOKEN = '56985Hu+HqAEc8w6DzgezfMTucL8v2GNlFXnM1GaFDs+CL15Q+ztdcG2BriaQN5B15Fr+MWP45QzTPEHQKKJXpvNk4TozHOERvTSkmvFbvhruJ1isnau+omyaJZ09omG84+RqzjEzi3GAEg4XtVezwdB04t89/1O/w1cDnyilFU='
+#LINE_CHANNEL_SECRET = 'cc410181fcf801c96ac87944923a210a'

@@ -1,0 +1,25 @@
+﻿{% extends "base.html" %}
+
+{% block title %} 東方世家 {% endblock %}
+{% block headmessage %} 東方世家 {% endblock %}
+{% block main %}
+
+<style>
+    .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+    }
+</style>
+
+<div class="container-sm mt-5 p-5">
+        <h3>Plotly練習</h3>
+        <p>這是一個sin cos的圖形.</p>
+
+        {% autoescape off %}
+        {{ plot_div }}
+        {% endautoescape %}
+    </div>
+        {% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %} 註冊 {% endblock %}
+{% load static %}
+{% block main %}
+<hr />
+{% block content %}
+<div class="container-sm p-5 rounded-3 shadow-lg" style="width: 800px">
+    <img class="mb-4 center" src="{% static 'svg/logo.svg' %}" alt="" width="72" height="60">
+    <h2 align="center"><b>加入會員</b></h2>
+    <br />
+    <form action="" method="POST" class="row g-3" name="registerForm" style="width: 40%; position: relative; left: 30%;">
+        {% csrf_token %}
+
+        <div class="form-group">
+            {{ form.username.label_tag }}
+            {{ form.username }}
+        </div>
+        <div class="form-group">
+            {{ form.password1.label_tag }}
+            {{ form.password1 }}
+        </div>
+        <div class="form-group">
+            {{ form.password2.label_tag }}
+            {{ form.password2 }}
+        </div>
+        <div class="form-group">
+            {{ form.email.label_tag }}
+            {{ form.email }}
+        </div>
+        {% if message %}
+        <div class="alert alert-warning">{{ message }}</div>
+        {% endif %}
+        <br />
+        <input class="bottonSub" type="submit" value="註冊"></input>
+    </form>
+</div>
+    {% endblock  %}
+    {% endblock  %}

@@ -1,0 +1,44 @@
+﻿{% extends "base.html" %}
+
+{% block title %} 登入 {% endblock %}
+{% block headmessage %} 會員登入 {% endblock %}
+{% block main %}
+<hr>
+{% load static %}
+<div class="container-sm p-5 rounded-3 shadow-lg" style="width: 800px">
+    <img class="mb-4 center" src="{% static 'svg/logo.svg' %}" alt="" width="72" height="60">
+    <h2 align="center"><b>會員登入</b></h2>
+    <p id="updated" align="center" style="color:Tomato;"></p>
+
+    <form action="/login/" method="POST" class="row g-3" name="accountForm" style="width:40%; position:relative; left:30%;">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.username.label_tag }}
+            {{ form.username }}
+        </div>
+        <div class="form-group">
+            {{ form.password.label_tag }}
+            {{ form.password }}
+        </div>
+        {% if message %}
+        <div class="alert alert-warning">{{ message }}</div>
+        {% endif %}
+        <div class="container">
+            <div class="row row-cols-2">
+                <div class="col"><a class="btn btn-outline-primary px-4 me-md-2 border" href="{% url 'Register' %}" role="button">加入會員</a></div>
+                <div class="col"><a class="btn btn-outline-primary px-4 me-md-2 border" href="/search_pwd" role="button">忘記密碼</a></div>
+                <div class="col"><button class="btn btn-primary px-4 me-md-2 border" type="submit" value="會員登入">會員登入</button></div>
+                <div class="col"><button class="btn btn-outline-secondary px-4 me-md-2 border" type="reset" value="重置輸入">重置輸入</button></div>
+            </div>
+        </div>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-centerr">
+
+
+        </div>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+
+
+        </div>
+    </form>
+</div>
+{% endblock %}

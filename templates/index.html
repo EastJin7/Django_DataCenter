@@ -1,21 +1,70 @@
-﻿
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 
 {% block title %} 東方世家 {% endblock %}
-{% block headmessage %} 
-    你好, {% if request.user.is_authenticated %}
-        {{ request.user.username }}
-    {% else %}
-        訪客
-    {% endif %} 
-{% endblock %}
+{% block headmessage %} 東方世家 {% endblock %}
 {% block main %}
-  <hr>
-        <h2>This is my test page.</h2>
-        <br>特別號：{{sp}}</br>
-        <br>樂透：{{lotto}}</br>
 
-      {% autoescape off %}
-      {{ plot_div }}
-      {% endautoescape %}
-{% endblock %}
+<style>
+    .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+    }
+</style>
+
+<div class="container-sm mt-5">
+    <!-- 幻燈片 Carousel -->
+    <div id="caro" class="carousel carousel-dark slide" data-bs-ride="carousel">
+        <!-- 幻燈片按鈕 -->
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#caro" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#caro" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#caro" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <!-- 左右控制按鈕 -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#caro" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#caro" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+        <!-- 幻燈片內容 -->
+        <div class="carousel-inner">
+            <div class="carousel-item active" data-bs-interval="5000">
+                <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: First Picture" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#f5f5f5" /><text x="50%" y="50%" fill="#aaa" dy=".3em">First slide</text></svg>
+                <div class="container">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3>圖1說明</h3>
+                        <p>這是圖1的說明文</p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item" data-bs-interval="5000">
+                <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Second Picture" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee" /><text x="50%" y="50%" fill="#bbb" dy=".3em">Second slide</text></svg>
+                <div class="container">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3>圖2說明</h3>
+                        <p>這是圖2的說明文</p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item" data-bs-interval="5000">
+                <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Third Picture" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#e5e5e5" /><text x="50%" y="50%" fill="#999" dy=".3em">Third slide</text></svg>
+                <div class="container">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3>圖3說明</h3>
+                        <p>這是圖3的說明文</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <h2>歡迎來到我的網頁</h2>
+    <p>這是一個測試網站.</p>
+</div>
+        {% endblock %}

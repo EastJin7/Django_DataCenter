@@ -2,10 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\dataCenter",
+    "\\dataCenter\\__pycache__",
     "\\mysite",
-    "\\mysite\\__pycache__",
-    "\\templates"
+    "\\static",
+    "\\staticfiles\\admin\\css\\vendor",
+    "\\static\\media\\works",
+    "\\static\\svg",
+    "\\templates",
+    "\\templates\\photos"
   ],
-  "SelectedNode": "\\templates\\show.html",
+  "SelectedNode": "\\templates\\about.html",
   "PreviewInSolutionExplorer": false
 }

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block main %}
+<hr />
+{% block content %}
+<div class="container-sm pt-3">
+    <h3>修改花費項目</h3>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="form-group col-md-6">
+
+                {{ form }}
+
+                <br />
+                <input type="submit" class="btn btn-success" value="更新">
+            </div>
+        </div>
+    </form>
+    {% endblock  %}
+    {% endblock  %}
+    </div>

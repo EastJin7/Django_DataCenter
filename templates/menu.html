@@ -1,66 +1,169 @@
-﻿<div class="pos-f-t">
-  <div class="collapse" id="navbarToggleExternalContent">
-    <div class="bg-dark p-4">
-      <h4 class="text-white">Collapsed content</h4>
-      <span class="text-muted">Toggleable via the navbar brand.</span>
-    </div>
-  </div>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#"> <!-- LOGO -->
-      <img src="images/logo.svg" width="30" height="30" class="d-inline-block align-top" alt="">    <!-- Icon -->
-      <span class="h4 mx-1">East-data</span>
-    </a>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0"> <!--url樣式-->
-        <li class="nav-item"> <!--單一按鈕-->
-          <a class="nav-link" aria-current="page" href="/">首頁</a>
-        </li>
-        <li class="nav-item"> <!--單一按鈕-->
-          <a class="nav-link" href="#">blog</a>
-        </li>
-        <li class="nav-item dropdown"> <!--下拉選單-->
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            我的練習
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown"> <!--下拉選單url樣式-->
-            <li><a class="dropdown-item" href="/news/">文章列表</a></li> <!--下拉選單link item樣式-->
-            <hr class="dropdown-divider"> <!--下拉選單分隔線-->
-            <li><a class="dropdown-item" href="/rank">國際城市人口排行</a></li>
-            <li><a class="dropdown-item" href="/chart">人口統計圖表</a></li>
-            <li><a class="dropdown-item" href="/note">意見反應</a></li>
-            <hr class="dropdown-divider"> <!--下拉選單分隔線-->
-            <li><a class="dropdown-item" href="/admin">管理後台</a></li>
-          </ul>
-        </li>
-      </ul><!--url樣式結束-->
+﻿<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!--設定HINT-->
+<script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+</script>
+{% load static %}
 
-      <form class="d-flex"> <!--搜尋樣式-->
-        <input class="form-control form-control-md me-2" type="search" placeholder="Search" aria-label="搜尋">
-        <button class="btn btn-outline-warning btn-sm" type="submit">Search</button>
-      </form>
-    <a class="navbar-brand" href="#"><!--未登入顯示訪客，登入顯示username-->
-    {% if request.user.is_authenticated %}
-      {{ request.user.username }}
-    {% else %}
-      訪客
-     {% endif %}
-    </a>
-      <ul class="navbar-nav mb-2 mb-lg-0"> <!--url樣式-->
-        {% if request.user.is_authenticated %}
-          <li class="nav-item dropdown"> <!--下拉選單-->
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            會員
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown"> <!--下拉選單url樣式-->
-            <li><a class="dropdown-item" href="/admin">管理後台</a></li> <!--下拉選單link item樣式-->
-            <li><a class="dropdown-item" href="/logout">登出</a></li><!--登出-->
-          </ul>
-        {% else %}
-            <li class="nav-item"><a class="nav-link" href="/admin/login/?newt=/" tabindex="-1">登入</a>/li><!--登入-->
-        {% endif %}
-        </ul>
+
+<nav class="navbar navbar-expand bg-dark navbar-dark fixed-top" style="max-height:100px">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <!-- LOGO -->
+            <div class="d-flex align-items-center text-white rounded mx-2">
+                <img class="d-inline-block bg-blue" src="{% static 'svg/logo.svg' %}" alt="logo" width="40" height="32"><!-- Icon -->
+                <div class="lh-1">
+                    <span class="h5 text-white mx-1">Eastern family</span>
+                </div>
+            </div>
+        </a>
+        <div class="collapse navbar-collapse navbar-nav" id="navbarContent">
+            <div class="w3-bar text-white">
+                <li class="nav-item">
+                    <a href="/" class="nav-link w3-bar-item btn botton w3-padding" aria-current="page" data-bs-toggle="tooltip" data-bs-placement="Bottom" title="首頁">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link w3-bar-item btn botton w3-padding w3-disabled" disabled>Blog</a>
+                </li>
+                <li class="nav-item w3-dropdown-hover dropdown">
+                    <button class="nav-link w3-padding btn" title="More">More <i class="fa fa-caret-down"></i></button>
+                    <ul class="w3-dropdown-content w3-bar-block dropdown-menu dropdown-menu-dark" aria-labelledby="navbarScrollingDropdown">
+                        <li><a href="/lotto" class="dropdown-item w3-bar-item w3-button bg-dark">樂透模擬器</a></li>
+                        <li><a href="/rank" class="dropdown-item w3-bar-item w3-button bg-dark">國際城市人口排行</a></li>
+                        <li><a href="/chart" class="dropdown-item w3-bar-item w3-button bg-dark">人口統計</a></li>
+                        <li><a href="/expenses" class="dropdown-item w3-bar-item w3-button bg-dark">記帳表</a></li>
+                        <li><a href="/plot" class="dropdown-item w3-bar-item w3-button bg-dark">Plotly 製圖練習</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="/about" class="nav-link w3-bar-item btn botton w3-padding">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/photos" class="nav-link w3-bar-item btn botton w3-padding">Works</a>
+                </li>
+                <li class="nav-item d-flex align-items-center w3-right">
+                    <!--單一按鈕-->
+                    <a class="nav-link w3-bar-item btn botton w3-padding" data-bs-toggle="offcanvas" data-bs-target="#rOffcanvas" data-bs-toggle="tooltip" data-bs-placement="Bottom" title="MENU"><i class="fa fa-bars"></i></a>
+                </li>
+
+                <!--<li class="nav-item w3-right">
+                <form class="d-flex">-->
+                <!--搜尋樣式-->
+                <!--<input class="form-control w3-bar-item form-control-sm me-1" type="search" placeholder="Search" aria-label="搜尋">
+                    <button class="btn w3-bar-item btn-outline-warning w3-padding" href="javascript:void(0)"><i class="fa fa-search"></i></button>
+                </form>
+            </li>-->
+
+                <li class="nav-link w3-bar-item w3-right w3-padding">
+                    <!--未登入顯示訪客，登入顯示username-->
+                    {% if request.user.is_authenticated %}
+                    {{ request.user.username }}
+                    {% else %}
+                    訪客
+                    {% endif %}
+                </li>
+
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 </nav>
+
+    <div class="offcanvas offcanvas-end bg-dark text-white p-3 my-3 d-flex align-items-center shadow-md d-flex flex-column flex-shrink-0" id="rOffcanvas" style="width: 320px;">
+        <!--右側畫布-->
+        <div class="container-fluid">
+            <div class="offcanvas-header">
+                <div class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white bg-blue rounded shadow-s text-decoration-none">
+                    <img class="bi me-2" src="{% static 'svg/logo.svg' %}" alt="" width="48" height="40"><!--右側畫布LOGO-->
+                </div>
+                <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap" /></svg>
+                    <span class="offcanvas-title fs-6">
+                        Eastern family
+                    </span>
+                </a>
+                <button type="button" class="btn-close-white btn-close" data-bs-dismiss="offcanvas"></button><!--關閉畫布的X-->
+            </div>
+
+            <div class="offcanvas-body my-3 p-3 bg-body rounded shadow-sm">
+                <!--右側畫布內容-->
+                <ul class="nav nav-pills flex-column scrollarea">
+                    <li class="nav-item">
+                        <a href="/" class="dropdown-item j-bar-item j-button d-block text-gray-dark" aria-current="page">
+                            <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="20" height="20" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#3C3C3C" /><text x="50%" y="50%" fill="#3C3C3C" dy=".3em">32x32</text></svg>
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/about" class="dropdown-item j-bar-item j-button d-block text-gray-dark">
+                            <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="20" height="20" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#00CACA" /><text x="50%" y="50%" fill="#00CACA" dy=".3em">32x32</text></svg>
+                            About
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/photos" class="dropdown-item j-bar-item j-button d-block text-gray-dark">
+                            <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="20" height="20" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#6f42c1" /><text x="50%" y="50%" fill="#6f42c1" dy=".3em">32x32</text></svg>
+                            作品集
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/blog" class="dropdown-item j-bar-item j-button d-block text-gray-dark disabled">
+                            <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="20" height="20" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#e83e8c" /><text x="50%" y="50%" fill="#e83e8c" dy=".3em">32x32</text></svg>
+                            BLOG
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/news" class="dropdown-item j-bar-item j-button d-block text-gray-dark">
+                            <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="20" height="20" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#4682B4" /><text x="50%" y="50%" fill="#4682B4" dy=".3em">32x32</text></svg>
+                            文章列表
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/note" class="dropdown-item j-bar-item j-button d-block text-gray-dark">
+                            <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="20" height="20" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#3cb371" /><text x="50%" y="50%" fill="#3cb371" dy=".3em">32x32</text></svg>
+                            留言板
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+
+
+        </div>
+        <hr>
+        <div class="w3-dropdown-hover">
+            <img src="https://www.w3schools.com/bootstrap4/img_avatar6.png" alt="" width="32" height="32" class="rounded-circle me-2">
+            <button class="nav-link w3-padding-large w3-button" title="username">
+                <strong>
+                    <!--未登入顯示訪客，登入顯示username-->
+                    {% if request.user.is_authenticated %}
+                    {{ request.user.username }}
+                    {% else %}
+                    訪客
+                    {% endif %}<i class="fa fa-caret-down"></i>
+                </strong>
+            </button>
+            <a href="#" class="d-flex align-items-center text-white text-decoration-none " id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                <ul class="w3-dropdown-content w3-bar-block dropdown-menu dropdown-menu-dark">
+                    {% if request.user.username == "admin" %}<!--管理員-->
+                    <li>
+                        <a href="/admin" class="w3-button dropdown-item bg-dark">管理後台</a>
+                    </li>
+                    {% endif %}
+                    {% if request.user.is_authenticated %}
+                    <!--登出-->
+                    <li>
+                        <a href="/logout" class="w3-button dropdown-item bg-dark">登出</a>
+                    </li>
+                    {% else %}
+                    <!--登入-->
+                    <li>
+                        <a href="{% url 'Login' %}" tabindex="-1" class="w3-button dropdown-item bg-dark">登入</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </a>
+        </div>
+    </div>

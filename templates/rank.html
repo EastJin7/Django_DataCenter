@@ -2,11 +2,10 @@
 {% extends "base.html" %}
 
 {% block title %} 國際城市人口排行 {% endblock %}
-{% block headmessage %} 國際城市人口排行榜 {% endblock %}
 {% block main %}
-    <hr>
-    <div class="container-sm">
-    <form action="/rank/" method=POST class="row g-2"><!-- submit後傳送給/rank，將資料以POST方式傳送 -->
+<hr />
+    <div class="container-sm mt-3 p-3">
+    <form action="/rank/" method=POST class="row g-2 pt-3"><!-- submit後傳送給/rank，將資料以POST方式傳送 -->
         <div class="btn-toolbar justify-content-between col-sm-3">
         <label for="selCountry" class="col-md-4 col-form-label">選擇國家：</label>
         <select name="get_countryid" class="form-control-sm"> <!-- 下拉式選單 -->
