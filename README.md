@@ -1,2 +1,2 @@
-# trainingHW
-專門放 人工智慧物聯網產業人才養成班 的作業
+# Django & Python
+已擴展成個人網站
